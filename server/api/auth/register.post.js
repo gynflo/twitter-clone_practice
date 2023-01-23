@@ -1,3 +1,6 @@
+import { createUser } from "~~/server/db/users";
+import { userTransformer } from "~~/server/transformers/user";
+
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
 
@@ -7,7 +10,16 @@ export default defineEventHandler(async (event) => {
         return sendError(event, createError({statusCode: 400, statusMessage: 'Invalid Params'}))
     }
 
-    return { 
-        body: body
+    if(password !== repeatPassword) {
+        return sendError(event, createError({statusCode: 400, statusMessage: 'Password doesn\'t match'}))
     }
-})
+
+    const userData = {name,username, password, email, profileImage: 'https://picsum.photos/200/200'}
+
+    const user = await createUser(userData);
+
+
+    return { 
+        body: userTransformer(user)
+    }
+});

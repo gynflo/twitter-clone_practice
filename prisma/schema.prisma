@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+//previewFeatures = ["referentialIntegrity"]
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+//referentialIntegrity = "prisma"
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+  
+}
+
+
+// Model User
+ model User {
+  id    String    @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+  name  String? @unique
+  username String @unique
+  password String
+  profileImage String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  refreshToken RefreshToken[]
+
+ }
+
+ // ModelRefreshToken
+ model RefreshToken {
+  id    String    @id @default(auto()) @map("_id") @db.ObjectId
+  token String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+
+ }
