@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+/* import bcrypt from 'bcrypt';
 import {getUserByUsername} from '@/server/db/users'
 import {generateTokens,sendRefreshToken} from '@/utils/jwt'
 import { userTransformer } from '~~/server/transformers/user';
@@ -52,4 +52,4 @@ export default defineEventHandler(async(event) => {
         access_token: accessToken,
         user: userTransformer(user)
     }
-});
+}); */

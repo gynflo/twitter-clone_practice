@@ -15,8 +15,7 @@ datasource db {
   
 }
 
-
-// Model User
+// Model User => id @auto pour mongoDB != autoincrement()
  model User {
   id    String    @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
@@ -27,20 +26,4 @@ datasource db {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  refreshToken RefreshToken[]
-
- }
-
- // ModelRefreshToken
- model RefreshToken {
-  id    String    @id @default(auto()) @map("_id") @db.ObjectId
-  token String @unique
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  userId String @db.ObjectId
-  user User @relation(fields: [userId], references: [id])
-
  }

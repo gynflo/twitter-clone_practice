@@ -1,7 +1,7 @@
 import {prisma} from '@/server/db'
 import bcrypt from 'bcrypt';
 
-
+//
 export const createUser = async (userData) => {
       const finalUserData = {
         ...userData,
@@ -13,6 +13,8 @@ export const createUser = async (userData) => {
         data: finalUserData
     })
 }
+
+
 
 export function getUserByUsername(username) {
     return prisma.user.findUnique({
