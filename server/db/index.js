@@ -1,7 +1,5 @@
-import Prisma from '@prisma/client';
+import {PrismaClient}  from '@prisma/client';
 
-
-const {PrismaClient} = Prisma
 
 
 const prisma = new PrismaClient();
@@ -20,6 +18,6 @@ main()
     console.error(e)
     await prisma.$disconnect()
     process.exit(1)
-  })
+  }) 
 
 export { prisma }

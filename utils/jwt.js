@@ -13,6 +13,27 @@ const config = useRuntimeConfig();
     return jwt.sign({userId: user.id}, config.jwtRefreshSecret, {expiresIn: '4h'})
 };
 
+export function decodeRefreshToken(token) {
+const config = useRuntimeConfig();
+
+    try {
+        return jwt.verify(token, config.jwtRefreshSecret);
+    } catch (error) {
+        return null;
+    }
+}
+
+export function decodeAccessToken(token) {
+const config = useRuntimeConfig();
+
+    try {
+        return jwt.verify(token, config.jwtAccessSecret);
+    } catch (error) {
+        return null;
+    }
+}
+
+
 export function generateTokens(user) {
 const accessToken = generateAccessToken(user);
 const refreshToken = generateRefreshToken(user);

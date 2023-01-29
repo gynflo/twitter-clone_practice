@@ -31,8 +31,8 @@ export default defineEventHandler(async(event) => {
 
     if(!isPasswordMatch) {
         return sendError(event, createError({
-            statusCode: 400,
-            statusMessage: 'Something went wrong'
+            statusCode: 401,
+            statusMessage: 'Username or password does\'t correct !'
         }));
     }
     // Generate Token (jsonwebtoken)
