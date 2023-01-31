@@ -1,19 +1,41 @@
 import jwt from 'jsonwebtoken';
 
 
-function generateAccessToken(user) {
+const generateAccessToken = (user) => {
 const config = useRuntimeConfig();
 
     return jwt.sign({userId:user.id},config.jwtAccessSecret, {expiresIn: '10min'})
 };
 
-function generateRefreshToken(user) {
+const generateRefreshToken = (user)=>  {
 const config = useRuntimeConfig();
 
     return jwt.sign({userId: user.id}, config.jwtRefreshSecret, {expiresIn: '4h'})
 };
 
-export function generateTokens(user) {
+export const decodeRefreshToken = (token) => {
+    try {
+        const config = useRuntimeConfig();
+        return jwt.verify(token, config.jwtRefreshSecret);
+        
+        
+    } catch (error) {
+        return null
+    }
+}
+
+export const decodeAccessToken = (token) => {
+    try {
+        const config = useRuntimeConfig();
+        return jwt.verify(token, config.jwtAccessSecret);
+        
+        
+    } catch (error) {
+        return null
+    }
+}
+
+export const generateTokens = (user) => {
 const accessToken = generateAccessToken(user);
 const refreshToken = generateRefreshToken(user);
 
@@ -23,7 +45,7 @@ const refreshToken = generateRefreshToken(user);
     }
 }
 
-export function sendRefreshToken(event, token){
+export const sendRefreshToken = (event, token) => {
     setCookie(event, "refresh_token", token, {
         httpOnly: true,
         sameSite: true
