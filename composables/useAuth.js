@@ -96,10 +96,9 @@ export default () => {
         return new Promise(async(resolve,reject) => {
             setIsAuthLoading(true);
             try {
-                await refreshToken();
-                await getUser();
-
-                reRefreshAccessToken();
+                    await refreshToken();
+                    await getUser();
+                    reRefreshAccessToken();
 
                 resolve(true)
             } catch (error) {

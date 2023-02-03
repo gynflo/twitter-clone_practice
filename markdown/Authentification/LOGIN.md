@@ -6,7 +6,7 @@ Le formulaire submit la fonction login importée du composable UserAuth qui pren
 
 ### UseAuth
 
-La fonction login retourne une prommesse resolve(true)
+La fonction login retourne une prommesse 
 un fetch (POST) envoie le username & password à l'API==> /api/auth/login
 et renvoie {user, access_token} dans une constante data
 
