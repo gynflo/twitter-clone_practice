@@ -2,7 +2,7 @@ import { v2 as _cloudinary} from'cloudinary';
 
 function cloudinary() {
     const config = useRuntimeConfig();
-        //config
+        //config credentials
         _cloudinary.config({
             cloud_name: config.cloudinaryCloudName,
             api_key: config.cloudinaryApiKey,
