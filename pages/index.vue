@@ -7,7 +7,9 @@ const user = useAuthUser();
 <template>
   <div>
     <MainSection title="Home" :isLoading="isLoading">
-      {{ user }}
+      <!-- {{ user }} -->
+
+      <TweetForm :user="user" />
     </MainSection>
   </div>
 </template>
