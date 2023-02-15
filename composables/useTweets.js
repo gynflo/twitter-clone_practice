@@ -1,6 +1,7 @@
 
 export default () => {
 
+    // Create Tweets
     function createTweet(formData) {
         
         const form = new FormData();
@@ -16,8 +17,25 @@ export default () => {
         })
     };
 
+    // Read Tweets
+    function getHomeTWeets() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await useFetchApi('/api/tweets', {
+                    method: 'GET'
+                });
+                resolve(response)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    } 
+
+   
+
     return {
-        createTweet
+        createTweet,
+        getHomeTWeets
     };
 };
 

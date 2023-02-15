@@ -6,4 +6,10 @@ export function createTweet(tweetData) {
     })
 };
 
+export function getTweets(params = {}) {
+    return prisma.tweet.findMany({
+        ...params
+    });
+}
+
 

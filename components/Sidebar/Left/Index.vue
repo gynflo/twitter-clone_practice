@@ -8,6 +8,7 @@ import {
   DocumentTextIcon,
   UserIcon,
   DotsCircleHorizontalIcon,
+  PencilIcon
 } from "@heroicons/vue/outline";
 const { defaultTransition } = useTailwindConfig();
 </script>
@@ -65,6 +66,20 @@ const { defaultTransition } = useTailwindConfig();
         <template #icon> <DotsCircleHorizontalIcon /></template>
         <template #name>More</template>
       </SidebarLeftTab>
+
+      <div class="hidden xl:block">
+        <UIButton liquid size="lg"
+          ><span class="font-bold">Tweet</span></UIButton
+        >
+      </div>
+
+      <div class="block xl:hidden">
+        <UIButton>
+          <div class="h-6 w-6 font-bold">
+            <PencilIcon/>
+          </div>
+        </UIButton>
+      </div>
     </div>
   </div>
 </template>

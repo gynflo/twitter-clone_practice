@@ -2,7 +2,7 @@
 const { useAuthUser, initAuth, useAuthLoading } = useAuth();
 const user = useAuthUser();
 const isAuthLoading = useAuthLoading();
-const darkMode = ref(false);
+const darkMode = ref(true);
 
 onBeforeMount(() => {
   initAuth();

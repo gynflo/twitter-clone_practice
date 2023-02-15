@@ -29,8 +29,15 @@ export default defineEventHandler(async(event) => {
         authorId: userId,
         text: fields.text
     }
+
+    const replyTo = fields.replyTo;
+    
+    if(replyTo && replyTo !== 'null' && replyTo !== 'undefined') {
+        tweetData.replyToId = replyTo;
+    }
     // Sauvegarde du tweet en BDD
     const tweet = await createTweet(tweetData);
+    
 
     // Sauvegarde du fichier Media en BDD
     const filePromises = Object.keys(files).map(async (key) => {
