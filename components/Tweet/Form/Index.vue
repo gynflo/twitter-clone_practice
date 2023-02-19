@@ -1,20 +1,31 @@
 <script setup>
 const { createTweet } = useTweets();
 const loading = ref(false);
+const emits = defineEmits(["onSucccess"]);
 const props = defineProps({
   user: {
     type: Object,
     required: true,
+  },
+  placeholder: {
+    type: String,
+  },
+  replyTo: {
+    type: Object,
+    default: null,
   },
 });
 
 async function handleFormSubmit(data) {
   loading.value = true;
   try {
-    await createTweet({
+    const response = await createTweet({
       text: data.text,
       mediaFiles: data.mediaFiles,
+      replyTo: props.replyTo?.id,
     });
+
+    emits("onSucccess", response.tweet);
   } catch (error) {
     console.error(error);
   } finally {
@@ -29,7 +40,11 @@ async function handleFormSubmit(data) {
       <UISpinner />
     </div>
     <div v-else>
-      <TweetFormInput :user="props.user" @on-submit="handleFormSubmit" />
+      <TweetFormInput
+        :user="props.user"
+        @on-submit="handleFormSubmit"
+        :placeholder="placeholder"
+      />
     </div>
   </div>
 </template>

@@ -17,18 +17,21 @@ const replyToTweetUrl = computed(() => `/status/${props.tweet.replyTo.id}`);
         :alt="`image-${tweet.author.username}`"
       />
     </div>
+
     <div class="ml-3">
       <span class="font-medium text-gray-800 dark:text-white">
-        {{tweet.author.username}}
+        {{ props.tweet.author.name }}
       </span>
+
       <span class="ml-3 text-sm font-medium text-gray-400">
-        <nuxt-link to="#">{{ tweet.handle }}</nuxt-link>
-        {{ tweet.postedAtHuman }}
+        <nuxt-link to="#">{{ props.tweet.author.handle }}</nuxt-link>
+        {{ props.tweet.postedAtHuman }}
       </span>
-      <p v-if="tweet.replyTo" class="text-sm">
+
+      <p v-if="props.tweet.replyTo" class="text-sm">
         <span class="text-gray-500 mr-1">Replying to</span>
         <NuxtLink :to="replyToTweetUrl" class="text-blue-400">
-          {{ props.tweet.handle }}
+          {{ props.tweet.replyTo.author.handle }}
         </NuxtLink>
       </p>
     </div>

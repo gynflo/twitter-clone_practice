@@ -3,6 +3,10 @@ const { defaultTransition } = useTailwindConfig();
 
 const props = defineProps({
   active: { type: Boolean, default: false },
+  link: {
+    type: String,
+    default: "#",
+  },
 });
 
 const textClasses = computed(() =>
@@ -12,7 +16,7 @@ const textClasses = computed(() =>
 
 <template>
   <NuxtLink
-    to="#"
+    :to="props.link"
     class="flex items-center p-3 text-black rounded-full w-min hover:bg-gray-200 dark:hover:bg-dim-200 dark:text-white"
     :class="defaultTransition"
   >

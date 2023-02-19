@@ -11,7 +11,6 @@ onBeforeMount(async () => {
   try {
     isLoading.value = true;
     const tweets = await getHomeTWeets();
-    console.log("🚀 ~ file: index.vue:14 ~ onBeforeMount ~ tweets", tweets);
     homeTweets.value = [...tweets];
   } catch (error) {
     console.error(error);
@@ -27,12 +26,11 @@ onBeforeMount(async () => {
       <head>
         <title>Home / Twitter</title>
       </head>
-
-       <div class="border-b" :class="twitterBorderColor">
+      <div v-if="user" class="border-b" :class="twitterBorderColor">
         <TweetForm :user="user" />
       </div>
 
-      <TweetFormListFeed :tweets="homeTweets" /> 
+      <TweetListFeed :tweets="homeTweets" />
     </MainSection>
   </div>
 </template>

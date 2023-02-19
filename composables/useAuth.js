@@ -42,7 +42,7 @@ export default () => {
                     }
 
                 });
-                console.log("🚀 ~ file: useAuth.js:36 ~ returnnewPromise ~ data", data)
+        
                 setToken(data.access_token);
                 setUser(data.user)
                 resolve(true);

@@ -12,4 +12,15 @@ export function getTweets(params = {}) {
     });
 }
 
+export function getTweetById(id, params = {}) {
+    return prisma.tweet.findUnique({
+        ...params,
+        where: {
+            ...params.where,
+            id,
+            
+        }
+    })
+};
+
 

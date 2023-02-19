@@ -12,7 +12,7 @@ export function tweetTransformer(tweet) {
         replyTo: !!tweet.replyTo ? tweetTransformer(tweet.replyTo) : null,
         repliesCount: !!tweet.replies ? tweet.replies.length : 0,
         postedAtHuman: human(tweet.createdAt),
-        handle: `@${tweet.author.username}`
+        
         
     }
 }

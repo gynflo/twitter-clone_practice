@@ -7,6 +7,8 @@ export default () => {
         const form = new FormData();
 
         form.append('text', formData.text);
+        form.append('replyTo', formData.replyTo);
+        
         formData.mediaFiles.forEach((media,index) => {
             form.append('media_files_' + index, media);
         })
@@ -31,11 +33,26 @@ export default () => {
         })
     } 
 
+    //Read Tweet by ID
+    function getTweetById(tweetId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await useFetchApi(`/api/tweets/${tweetId}`, {
+                    method: 'GET'
+                });
+                resolve(response);
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
    
 
     return {
         createTweet,
-        getHomeTWeets
+        getHomeTWeets,
+        getTweetById
     };
 };
 

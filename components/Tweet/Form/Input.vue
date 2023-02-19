@@ -11,6 +11,11 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  placeholder: {
+    type: String,
+    default: "What's happening ?",
+  },
+  
 });
 const emits = defineEmits(["onSubmit"]);
 
@@ -25,6 +30,7 @@ function handleFormSubmit() {
   emits("onSubmit", {
     text: text.value,
     mediaFiles: [selectedFile.value],
+    
   });
   text.value = "";
 }
@@ -57,7 +63,7 @@ function handleImageChange(event) {
       <div class="w-full p-2">
         <textarea
           v-model="text"
-          placeholder="What's happening ?"
+          :placeholder="props.placeholder"
           class="w-full h-12 text-lg text-gray-900 placeholder:text-gray-400 bg-transparent border-0 dark:text-white focus:ring-0"
         ></textarea>
       </div>
