@@ -29,7 +29,7 @@ const props = defineProps({
     >
       <UISpinner />
     </div>
-    <div class="dark:text-white" v-else>
+    <div v-else class="dark:text-white">
       <slot></slot>
     </div>
   </div>

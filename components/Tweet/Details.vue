@@ -26,7 +26,7 @@ function handleFormSuccess(tweet) {
       placeholder="Tweet your reply"
       :user="user"
       :replyTo="props.tweet"
-      @onSucccess="handleFormSuccess"
+      @onSuccess="handleFormSuccess"
     />
     <TweetListFeed :tweets="replies" />
   </div>

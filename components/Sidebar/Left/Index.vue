@@ -11,6 +11,8 @@ import {
   PencilIcon,
 } from "@heroicons/vue/outline";
 const { defaultTransition } = useTailwindConfig();
+
+const emits = defineEmits(["onTweet"]);
 </script>
 
 <template>
@@ -68,13 +70,13 @@ const { defaultTransition } = useTailwindConfig();
       </SidebarLeftTab>
 
       <div class="hidden xl:block">
-        <UIButton liquid size="lg"
-          ><span class="font-bold">Tweet</span></UIButton
-        >
+        <UIButton liquid size="lg" @onClick="($event) => emits('onTweet')">
+          <span class="font-bold">Tweet</span>
+        </UIButton>
       </div>
 
       <div class="block xl:hidden">
-        <UIButton>
+        <UIButton @onClick="($event) => emits('onTweet')">
           <div class="h-6 w-6 font-bold">
             <PencilIcon />
           </div>

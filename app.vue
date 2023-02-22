@@ -1,12 +1,41 @@
 <script setup>
 const { useAuthUser, initAuth, useAuthLoading } = useAuth();
 const user = useAuthUser();
+const {
+  openPostTweetModal,
+  closePostTweeModal,
+  usePostTweetModal,
+  getHomeTWeets,
+  useReplyTweet,
+} = useTweets();
+const postTweetModal = usePostTweetModal();
+const replyTweet = useReplyTweet();
+const emitter = useEmitter();
+
+emitter.$on("replyTweet", (tweet) => {
+  openPostTweetModal(tweet);
+});
+
 const isAuthLoading = useAuthLoading();
 const darkMode = ref(false);
 
 onBeforeMount(() => {
   initAuth();
 });
+
+function handleFormSuccess(tweet) {
+  closePostTweeModal();
+  navigateTo({
+    path: `/status/${tweet.id}`,
+  });
+}
+function handleOpenModalTweet() {
+  openPostTweetModal(null);
+}
+
+function handleModalClose() {
+  closePostTweeModal();
+}
 </script>
 
 <template>
@@ -24,7 +53,7 @@ onBeforeMount(() => {
           <!-- Left Sidebar -->
           <div class="hidden md:block xs:col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <SidebarLeft />
+              <SidebarLeft @onTweet="handleOpenModalTweet" />
             </div>
           </div>
           <!-- Main Sidebar -->
@@ -40,6 +69,16 @@ onBeforeMount(() => {
         </div>
       </div>
       <AuthPage v-else />
+      <UIModal :isOpen="postTweetModal" @onClose="handleModalClose">
+        <div v-if="user">
+          <TweetForm
+            :user="user"
+            :replyTo="replyTweet"
+            showReply
+            @OnSuccess="handleFormSuccess"
+          />
+        </div>
+      </UIModal>
     </div>
   </div>
 </template>

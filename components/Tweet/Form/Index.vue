@@ -1,7 +1,7 @@
 <script setup>
 const { createTweet } = useTweets();
 const loading = ref(false);
-const emits = defineEmits(["onSucccess"]);
+const emits = defineEmits(["onSuccess"]);
 const props = defineProps({
   user: {
     type: Object,
@@ -9,10 +9,15 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
+    default: "What's happening ?",
   },
   replyTo: {
     type: Object,
     default: null,
+  },
+  showReply: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -25,7 +30,7 @@ async function handleFormSubmit(data) {
       replyTo: props.replyTo?.id,
     });
 
-    emits("onSucccess", response.tweet);
+    emits("onSuccess", response.tweet);
   } catch (error) {
     console.error(error);
   } finally {
@@ -40,9 +45,14 @@ async function handleFormSubmit(data) {
       <UISpinner />
     </div>
     <div v-else>
+      <TweetItem
+        :tweet="props.replyTo"
+        v-if="props.replyTo && props.showReply"
+        hideActions
+      />
       <TweetFormInput
         :user="props.user"
-        @on-submit="handleFormSubmit"
+        @onSubmit="handleFormSubmit"
         :placeholder="placeholder"
       />
     </div>

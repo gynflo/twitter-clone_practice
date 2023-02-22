@@ -16,6 +16,7 @@ const props = defineProps({
     default: false,
   },
 });
+const emits = defineEmits(["onCommentClick"]);
 
 function generateRandomNumber() {
   return Number(Math.floor(Math.random() * 100));
@@ -27,12 +28,12 @@ const size = computed(() => (props.compact ? 5 : 8));
 
 <template>
   <div class="flex align-items w-full justify-around">
-    <TweetItemActionsIcon color="blue" :size="size">
+    <TweetItemActionsIcon color="blue" :size="size" @onClick="($event) => emits('onCommentClick')">
       <template v-slot:icon="{ classes }">
         <ChatIcon :class="classes" />
       </template>
 
-      <template v-if="showStats" v-slot:default>{{
+      <template  v-slot:default>{{
         props.tweet.repliesCount
       }}</template>
     </TweetItemActionsIcon>

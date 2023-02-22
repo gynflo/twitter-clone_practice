@@ -4,12 +4,12 @@ const { twitterBorderColor } = useTailwindConfig();
 const { getHomeTWeets } = useTweets();
 
 const isLoading = ref(false);
-const homeTweets = ref();
+const homeTweets = ref([]);
 const user = useAuthUser();
 
 onBeforeMount(async () => {
+  isLoading.value = true;
   try {
-    isLoading.value = true;
     const tweets = await getHomeTWeets();
     homeTweets.value = [...tweets];
   } catch (error) {
@@ -18,6 +18,12 @@ onBeforeMount(async () => {
     isLoading.value = false;
   }
 });
+
+function handleFormSuccess(tweet) {
+  navigateTo({
+    path: `/status/${tweet.id}`,
+  });
+}
 </script>
 
 <template>
@@ -27,7 +33,7 @@ onBeforeMount(async () => {
         <title>Home / Twitter</title>
       </head>
       <div v-if="user" class="border-b" :class="twitterBorderColor">
-        <TweetForm :user="user" />
+        <TweetForm :user="user" @onSuccess="handleFormSuccess" />
       </div>
 
       <TweetListFeed :tweets="homeTweets" />

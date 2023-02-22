@@ -6,6 +6,10 @@ const isLoading = ref(false);
 const tweet = ref(null);
 const user = useAuthUser();
 
+onBeforeMount(() => {
+  getTweet();
+});
+
 //Rafraichit la page si la source change (url)
 watch(
   () => useRoute().fullPath,
@@ -27,10 +31,6 @@ async function getTweet() {
     isLoading.value = false;
   }
 }
-
-onBeforeMount(() => {
-  getTweet();
-});
 </script>
 
 <template>

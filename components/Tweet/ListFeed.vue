@@ -22,7 +22,7 @@ const props = defineProps({
       :key="tweet.id"
       class="pb-4 border-b hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-dim-300"
       :class="[twitterBorderColor, defaultTransition]"
-      @click.native="redirectTo(tweet.id)"
+      @click.native="$event => redirectTo(tweet.id)"
     >
       <TweetItem :tweet="tweet" compact />
     </div>
