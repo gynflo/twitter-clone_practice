@@ -12,12 +12,12 @@ export function getTweets(params = {}) {
     });
 }
 
-export function getTweetById(id, params = {}) {
+export function getTweetById(tweetId, params = {}) {
     return prisma.tweet.findUnique({
         ...params,
         where: {
             ...params.where,
-            id,
+            id: tweetId,
             
         }
     })

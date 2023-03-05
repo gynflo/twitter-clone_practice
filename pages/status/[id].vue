@@ -6,24 +6,21 @@ const isLoading = ref(false);
 const tweet = ref(null);
 const user = useAuthUser();
 
-onBeforeMount(() => {
-  getTweet();
-});
-
 //Rafraichit la page si la source change (url)
 watch(
   () => useRoute().fullPath,
   () => getTweet()
 );
 
-function getIdFromRoute() {
+function geTweetIdFromRoute() {
   return useRoute().params.id;
 }
 
 async function getTweet() {
   isLoading.value = true;
   try {
-    const response = await getTweetById(getIdFromRoute());
+    const response = await getTweetById(geTweetIdFromRoute());
+
     tweet.value = response.tweet;
   } catch (error) {
     console.log(error);
@@ -31,6 +28,11 @@ async function getTweet() {
     isLoading.value = false;
   }
 }
+
+//lifecycle
+onBeforeMount(() => {
+  getTweet();
+});
 </script>
 
 <template>
@@ -47,4 +49,4 @@ async function getTweet() {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped></style>

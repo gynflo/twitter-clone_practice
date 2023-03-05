@@ -1,11 +1,10 @@
 <script setup>
-const { useAuthUser, initAuth, useAuthLoading } = useAuth();
+const { useAuthUser, initAuth, useAuthLoading, logout } = useAuth();
 const user = useAuthUser();
 const {
   openPostTweetModal,
   closePostTweeModal,
   usePostTweetModal,
-  getHomeTWeets,
   useReplyTweet,
 } = useTweets();
 const postTweetModal = usePostTweetModal();
@@ -16,6 +15,10 @@ emitter.$on("replyTweet", (tweet) => {
   openPostTweetModal(tweet);
 });
 
+emitter.$on("toggleDarkMode", () => {
+  darkMode.value = !darkMode.value;
+});
+
 const isAuthLoading = useAuthLoading();
 const darkMode = ref(false);
 
@@ -23,9 +26,9 @@ onBeforeMount(() => {
   initAuth();
 });
 
-function handleFormSuccess(tweet) {
+async function handleFormSuccess(tweet) {
   closePostTweeModal();
-  navigateTo({
+  await navigateTo({
     path: `/status/${tweet.id}`,
   });
 }
@@ -35,6 +38,10 @@ function handleOpenModalTweet() {
 
 function handleModalClose() {
   closePostTweeModal();
+}
+
+function handleUserLogout() {
+  logout();
 }
 </script>
 
@@ -53,7 +60,11 @@ function handleModalClose() {
           <!-- Left Sidebar -->
           <div class="hidden md:block xs:col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <SidebarLeft @onTweet="handleOpenModalTweet" />
+              <SidebarLeft
+                :user="user"
+                @onTweet="handleOpenModalTweet"
+                @onLogout="handleUserLogout"
+              />
             </div>
           </div>
           <!-- Main Sidebar -->

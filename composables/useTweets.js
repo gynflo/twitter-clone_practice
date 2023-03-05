@@ -23,18 +23,20 @@ export default () => {
     };
 
     // Read Tweets
-    function getHomeTWeets() {
+    function getTweets(params = {}) {
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await useFetchApi('/api/tweets', {
-                    method: 'GET'
+                    method: 'GET',
+                    params
                 });
                 resolve(response)
             } catch (error) {
-                reject(error)
-            }
+               reject(error) 
+            } 
         })
-    } 
+    }
+    
 
     //Read Tweet by ID
     function getTweetById(tweetId) {
@@ -49,6 +51,7 @@ export default () => {
             }
         })
     }
+
 
     const setReplyTo = (tweet) => {
         const replyTweet = useReplyTweet()
@@ -69,8 +72,8 @@ export default () => {
 
     return {
         createTweet,
-        getHomeTWeets,
         getTweetById,
+        getTweets,
         closePostTweeModal,
         openPostTweetModal,
         usePostTweetModal,

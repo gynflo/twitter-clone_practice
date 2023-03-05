@@ -2,7 +2,7 @@ import { getTweetById } from "@/server/db/tweet";
 import { tweetTransformer } from "@/server/transformers/tweet";
 
 export default defineEventHandler(async (event) => {
-
+    
     const {id} = event.context.params
 
     const tweet = await getTweetById(id, {
@@ -30,6 +30,6 @@ export default defineEventHandler(async (event) => {
 
 
     return {
-        tweet: tweetTransformer(tweet)
+     tweet: tweetTransformer(tweet)      
     }
 });

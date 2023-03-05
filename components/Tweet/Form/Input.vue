@@ -15,7 +15,6 @@ const props = defineProps({
     type: String,
     default: "What's happening ?",
   },
-  
 });
 const emits = defineEmits(["onSubmit"]);
 
@@ -30,7 +29,6 @@ function handleFormSubmit() {
   emits("onSubmit", {
     text: text.value,
     mediaFiles: [selectedFile.value],
-    
   });
   text.value = "";
 }
@@ -54,7 +52,7 @@ function handleImageChange(event) {
     <div class="flex items-center flex-shrink-0 p-4 pb-0">
       <div class="flex w-12 items-top">
         <img
-          :src="props.user.profileImage"
+          :src="props?.user?.profileImage"
           alt=""
           class="inline-block w-10 h-10 rounded-full"
         />

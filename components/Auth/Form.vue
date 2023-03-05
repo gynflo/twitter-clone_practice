@@ -19,10 +19,19 @@ async function handleLogin() {
     data.isLoading = false;
   }
 }
+
+const isButtonDisabled = computed(() => {
+  return !data.username || !data.password || data.isLoading;
+});
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
+    <div class="flex justify-center">
+      <div class="w-10 h-10">
+        <LogoTwitter />
+      </div>
+    </div>
     <div class="pt-5 space-y-6">
       <UIInput
         label="username"
@@ -37,13 +46,9 @@ async function handleLogin() {
         v-model="data.password"
       />
     </div>
-    <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-      type="button"
-      @click="handleLogin"
+    <UIButton liquid @click="handleLogin" :disabled="isButtonDisabled"
+      >Login</UIButton
     >
-      Submit
-    </button>
   </div>
 </template>
 

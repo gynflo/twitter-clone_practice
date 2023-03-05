@@ -13,7 +13,7 @@ const replyToTweetUrl = computed(() => `/status/${props.tweet.replyTo.id}`);
     <div>
       <img
         class="w-10 h-10 rounded-full"
-        :src="tweet.author.profileImage"
+        :src="tweet?.author?.profileImage"
         :alt="`image-${tweet.author.username}`"
       />
     </div>

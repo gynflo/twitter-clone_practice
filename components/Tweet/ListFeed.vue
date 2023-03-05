@@ -1,8 +1,11 @@
 <script setup>
 const { twitterBorderColor, defaultTransition } = useTailwindConfig();
 const isEmptyArrayTweets = computed(() => props.tweets.length === 0);
-function redirectTo(id) {
-  navigateTo(`/status/${id}`);
+
+async function redirectTo(id) {
+  await navigateTo({
+    path: `/status/${id}`,
+  });
 }
 const props = defineProps({
   tweets: {
@@ -10,6 +13,7 @@ const props = defineProps({
     required: true,
   },
 });
+
 </script>
 
 <template>
@@ -22,7 +26,7 @@ const props = defineProps({
       :key="tweet.id"
       class="pb-4 border-b hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-dim-300"
       :class="[twitterBorderColor, defaultTransition]"
-      @click.native="$event => redirectTo(tweet.id)"
+      @click.native="redirectTo(tweet.id)"
     >
       <TweetItem :tweet="tweet" compact />
     </div>
